@@ -1,4 +1,3 @@
-from datasets import load_dataset
-
-
-print(ds.columns)
+with open("datasets/TinyStories-train.txt", "r") as file:
+    content = file.read()
+    print(content)
