@@ -11,6 +11,6 @@ if __name__ == "__main__":
     
     test_text = "Never gonna give you up. Never gonna let you down"
     print("Original:", test_text)
-    print("Tokens:    ", tokenizer.tokenize(test_text))
-    print("IDs:       ", tokenizer.encode(test_text))
-    print("Decoded:   ", tokenizer.decode(tokenizer.encode(test_text)))
+    print("Tokens:    ", new_tokenizer.tokenize(test_text))
+    print("IDs:       ", new_tokenizer.encode(test_text))
+    print("Decoded:   ", new_tokenizer.decode(new_tokenizer.encode(test_text)))

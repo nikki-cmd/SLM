@@ -97,6 +97,33 @@ class BPETokenizer :
         self._is_trained = True
         print(f"Final vocab size:{len(self.vocab)}")
     
+    def tokenize(self, text: str) -> List[str]:
+        '''Tokenize text into subword units(not IDs)'''
+        if not self._is_trained:
+            raise RuntimeError("Tokenizer not trained yet!")
+        
+        words = text.strip().split()
+        tokenized_words = []
+        for word in words:
+            word = word + '</w>'
+            #start with characters
+            tokens = list(word)
+            
+            #applying all learned merges
+            for pair in self.merges:
+                new_tokens = []
+                i = 0
+                while i < len(tokens):
+                    if i < len(tokens) - 1 and (tokens[i], tokens[i+1]) == pair:
+                        new_tokens.append(''.join(pair))
+                        i += 2
+                    else:
+                        new_tokens.append(tokens[i])
+                        i += 1
+                tokens = new_tokens
+            tokenized_words.extend(tokens)
+        return tokenized_words
+        
     def save(self, path: str):
         '''Saves tokenizer state to json'''
         state = {
