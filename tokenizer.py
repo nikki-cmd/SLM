@@ -161,6 +161,6 @@ class BPETokenizer :
         text = ''.join(tokens)
         text = text.replace('</w>', ' ')
         #clean extra spaces
-        text = re.sup(r'\s+', ' ', text).strip()
+        text = re.sub(r'\s+', ' ', text).strip()
         
         return text
