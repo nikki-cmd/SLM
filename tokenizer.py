@@ -164,3 +164,17 @@ class BPETokenizer :
         text = re.sub(r'\s+', ' ', text).strip()
         
         return text
+    
+    @classmethod
+    def load_tokenizer(cls, path: str):
+        """Load tokenizer from file."""
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        tokenizer = BPETokenizer()
+        tokenizer.vocab = {k: v for k, v in data['vocab'].items()}
+        tokenizer.merges = [tuple(m) for m in data['merges']]
+        tokenizer.special_tokens = data['special_tokens']
+        # Build inverse vocab
+        tokenizer.inv_vocab = {v: k for k, v in tokenizer.vocab.items()}
+        tokenizer._is_trained = True
+        return tokenizer
