@@ -1,6 +1,7 @@
 import tokenizer
 import dataset
 from torch.utils.data import DataLoader
+from model import TransformerDecoderLM
 
 if __name__ == "__main__":
     tok = tokenizer.BPETokenizer.load_tokenizer(path="bpe_tokenizer.json")
@@ -33,4 +34,16 @@ if __name__ == "__main__":
     print("Sample input tokens:", x[0][:10])
     print("Sample decoded:", tok.decode(x[0].tolist()))
     
+    
+    model = TransformerDecoderLM(
+    vocab_size=2000,
+    d_model=256,
+    n_layers=4,
+    n_heads=8,
+    max_seq_len=256,
+    dropout=0.1
+)
+    x_batch, _ = next(iter(train_loader))
+    logits = model(x_batch)
+    print("Logits shape:", logits.shape)
     
