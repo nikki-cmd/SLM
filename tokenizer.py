@@ -178,3 +178,8 @@ class BPETokenizer :
         tokenizer.inv_vocab = {v: k for k, v in tokenizer.vocab.items()}
         tokenizer._is_trained = True
         return tokenizer
+    
+
+    @property
+    def vocab_size(self):
+        return max(self.vocab.values()) + 1
